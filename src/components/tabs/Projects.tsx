@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Folder } from 'lucide-react';
 import { Card } from '../UI/card';
+import { GlowingEffect } from '../UI/glowing-effect';
 
 interface Project {
   id: number;
@@ -214,15 +215,84 @@ export const Projects: React.FC = () => {
               // featured principal: destaque maior
               if (featuredIndex === 0) {
                 const content = (
-                  <Card className="lg:col-span-2 lg:row-span-2 h-full flex flex-col featured-glow border border-white/5 rounded-lg overflow-hidden" borderColor="linear-gradient(180deg,var(--primary),var(--accent))">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <span className="text-[9px] text-muted font-mono tracking-[0.2em] uppercase mb-2 block">Featured Project</span>
-                        <h3 className="text-white text-2xl font-extrabold tracking-tight mb-1">
-                          {p.name}
-                        </h3>
-                        <p className="text-muted font-mono text-[9px] uppercase mb-4">{p.date}</p>
+                  <div className="relative h-full rounded-lg">
+                    <GlowingEffect spread={40} glow disabled={false} proximity={64} inactiveZone={0.01} borderWidth={2} />
+                    <Card className="h-full flex flex-col featured-glow border border-white/5 rounded-lg overflow-hidden" borderColor="linear-gradient(180deg,var(--primary),var(--accent))">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <span className="text-[9px] text-muted font-mono tracking-[0.2em] uppercase mb-2 block">Featured Project</span>
+                          <h3 className="text-white text-2xl font-extrabold tracking-tight mb-1">
+                            {p.name}
+                          </h3>
+                          <p className="text-muted font-mono text-[9px] uppercase mb-4">{p.date}</p>
+                        </div>
                       </div>
+
+                      <p className="text-[13px] text-muted leading-relaxed mb-6 font-light">{p.summary}</p>
+
+                      <div className="mt-auto">
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {p.tech.map((t) => (
+                            <span key={t} className="brand-tag">{t}</span>
+                          ))}
+                        </div>
+
+                        <div className="text-primary text-sm font-semibold">View Repository →</div>
+                      </div>
+                    </Card>
+                  </div>
+                );
+
+                return repoUrl ? (
+                  <a key={p.id} href={repoUrl} target="_blank" rel="noreferrer" aria-label={`Open ${p.name} repository`} className="lg:col-span-2 lg:row-span-2 no-underline block">{content}</a>
+                ) : (
+                  <div key={p.id} className="lg:col-span-2 lg:row-span-2">{content}</div>
+                );
+              }
+
+              // segundo featured: coluna simples mas altura maior
+              if (featuredIndex === 1) {
+                const content = (
+                  <div className="relative h-full rounded-lg">
+                    <GlowingEffect spread={40} glow disabled={false} proximity={64} inactiveZone={0.01} borderWidth={2} />
+                    <Card className="h-full flex flex-col border border-white/5 rounded-lg overflow-hidden" borderColor="#334155">
+                      <div>
+                        <span className="text-[9px] font-bold text-muted uppercase tracking-tight mb-2">Repository</span>
+                        <h3 className="text-white text-xl font-bold leading-tight mb-2">{p.name}</h3>
+                        <span className="font-mono text-[9px] text-muted mb-4">{p.date}</span>
+
+                        <p className="text-[12px] text-muted leading-relaxed mb-6 font-light">{p.summary}</p>
+                      </div>
+
+                      <div className="mt-auto">
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {p.tech.map((tag) => (
+                            <span key={tag} className="brand-tag">{tag}</span>
+                          ))}
+                        </div>
+
+                        <div className="text-primary text-sm font-semibold">View Repository →</div>
+                      </div>
+                    </Card>
+                  </div>
+                );
+
+                return repoUrl ? (
+                  <a key={p.id} href={repoUrl} target="_blank" rel="noreferrer" aria-label={`Open ${p.name} repository`} className="no-underline block lg:col-span-1 lg:row-span-2">{content}</a>
+                ) : (
+                  <div key={p.id} className="group lg:col-span-1 lg:row-span-2">{content}</div>
+                );
+              }
+
+              // fallback para outros featured
+              const content = (
+                <div className="relative h-full rounded-lg">
+                  <GlowingEffect spread={40} glow disabled={false} proximity={64} inactiveZone={0.01} borderWidth={2} />
+                  <Card className="h-full flex flex-col border border-white/5 rounded-lg overflow-hidden" borderColor="#334155">
+                    <div>
+                      <span className="text-[9px] text-muted font-mono tracking-[0.2em] uppercase mb-2 block">Featured Project</span>
+                      <h3 className="text-white text-2xl font-extrabold tracking-tight mb-1">{p.name}</h3>
+                      <p className="text-muted font-mono text-[9px] uppercase mb-4">{p.date}</p>
                     </div>
 
                     <p className="text-[13px] text-muted leading-relaxed mb-6 font-light">{p.summary}</p>
@@ -237,67 +307,7 @@ export const Projects: React.FC = () => {
                       <div className="text-primary text-sm font-semibold">View Repository →</div>
                     </div>
                   </Card>
-                );
-
-                return repoUrl ? (
-                  <a key={p.id} href={repoUrl} target="_blank" rel="noreferrer" aria-label={`Open ${p.name} repository`} className="lg:col-span-2 lg:row-span-2 no-underline block">{content}</a>
-                ) : (
-                  <div key={p.id} className="lg:col-span-2 lg:row-span-2">{content}</div>
-                );
-              }
-
-              // segundo featured: coluna simples mas altura maior
-              if (featuredIndex === 1) {
-                const content = (
-                  <Card className="lg:row-span-2 h-full flex flex-col border border-white/5 rounded-lg overflow-hidden" borderColor="#334155">
-                    <div>
-                      <span className="text-[9px] font-bold text-muted uppercase tracking-tight mb-2">Repository</span>
-                      <h3 className="text-white text-xl font-bold leading-tight mb-2">{p.name}</h3>
-                      <span className="font-mono text-[9px] text-muted mb-4">{p.date}</span>
-
-                      <p className="text-[12px] text-muted leading-relaxed mb-6 font-light">{p.summary}</p>
-                    </div>
-
-                    <div className="mt-auto">
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {p.tech.map((tag) => (
-                          <span key={tag} className="brand-tag">{tag}</span>
-                        ))}
-                      </div>
-
-                      <div className="text-primary text-sm font-semibold">View Repository →</div>
-                    </div>
-                  </Card>
-                );
-
-                return repoUrl ? (
-                  <a key={p.id} href={repoUrl} target="_blank" rel="noreferrer" aria-label={`Open ${p.name} repository`} className="no-underline block lg:col-span-1 lg:row-span-2">{content}</a>
-                ) : (
-                  <div key={p.id} className="group lg:col-span-1 lg:row-span-2">{content}</div>
-                );
-              }
-
-              // fallback para outros featured
-              const content = (
-                <Card className="lg:col-span-2 h-full flex flex-col border border-white/5 rounded-lg overflow-hidden" borderColor="#334155">
-                  <div>
-                    <span className="text-[9px] text-muted font-mono tracking-[0.2em] uppercase mb-2 block">Featured Project</span>
-                    <h3 className="text-white text-2xl font-extrabold tracking-tight mb-1">{p.name}</h3>
-                    <p className="text-muted font-mono text-[9px] uppercase mb-4">{p.date}</p>
-                  </div>
-
-                  <p className="text-[13px] text-muted leading-relaxed mb-6 font-light">{p.summary}</p>
-
-                  <div className="mt-auto">
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {p.tech.map((t) => (
-                        <span key={t} className="brand-tag">{t}</span>
-                      ))}
-                    </div>
-
-                    <div className="text-primary text-sm font-semibold">View Repository →</div>
-                  </div>
-                </Card>
+                </div>
               );
 
               return repoUrl ? (
@@ -309,21 +319,24 @@ export const Projects: React.FC = () => {
 
             // cartões normais
             const card = (
-              <Card className="h-full flex flex-col justify-between" borderColor={p.borderColor}>
-                <div>
-                  <span className="text-[9px] font-bold text-muted uppercase tracking-tight">Repository</span>
-                  <h3 className="text-sm font-bold text-white leading-tight mt-1 mb-1">{p.name}</h3>
-                  <span className="font-mono text-[9px] text-muted">{p.date}</span>
-                </div>
-                
-                <p className="text-[11px] text-muted line-clamp-3 font-light leading-relaxed my-3">{p.summary}</p>
+              <div className="relative h-full rounded-xl">
+                <GlowingEffect spread={40} glow disabled={false} proximity={64} inactiveZone={0.01} borderWidth={2} />
+                <Card className="h-full flex flex-col justify-between" borderColor={p.borderColor}>
+                  <div>
+                    <span className="text-[9px] font-bold text-muted uppercase tracking-tight">Repository</span>
+                    <h3 className="text-sm font-bold text-white leading-tight mt-1 mb-1">{p.name}</h3>
+                    <span className="font-mono text-[9px] text-muted">{p.date}</span>
+                  </div>
 
-                <div className="flex flex-wrap gap-2">
-                  {p.tech.map((tag) => (
-                    <span key={tag} className="brand-tag">{tag}</span>
-                  ))}
-                </div>
-              </Card>
+                  <p className="text-[11px] text-muted line-clamp-3 font-light leading-relaxed my-3">{p.summary}</p>
+
+                  <div className="flex flex-wrap gap-2">
+                    {p.tech.map((tag) => (
+                      <span key={tag} className="brand-tag">{tag}</span>
+                    ))}
+                  </div>
+                </Card>
+              </div>
             );
 
             return repoUrl ? (

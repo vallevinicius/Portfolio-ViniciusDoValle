@@ -354,11 +354,16 @@ html, body, #root {
 
   /* evitar a aba branca ao 'bater' no topo/rodapé (bounce) */
   margin: 0;
-  height: 100%;
   background-color: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior-y: contain; /* previne que o bounce mostre fundo branco */
+}
+
+/* altura fixa apenas no html: body/#root crescem com o conteúdo, mantendo
+   o scroll real na window (necessário para o hero com scroll-expand) */
+html {
+  height: 100%;
 }
 
 /* também garantir que imagens e elementos grandes respeitem a viewport */

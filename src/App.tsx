@@ -17,12 +17,12 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#060913] text-slate-400 font-sans p-4 md:p-6 selection:bg-blue-500/30">
+    <div className="min-h-screen bg-[#060913] text-slate-400 font-sans selection:bg-blue-500/30">
       <TopNav activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <div className="pt-20 max-w-5xl mx-auto space-y-6"> 
-        <Header setActiveTab={setActiveTab} />
+      <Header setActiveTab={setActiveTab} />
 
+      <div className="pt-16 max-w-5xl mx-auto px-4 md:px-6 space-y-6">
         <main className="min-h-[300px]">
           {activeTab === 'about' && <About skills={skills} />}
           {activeTab === 'experience' && <Experience />}
