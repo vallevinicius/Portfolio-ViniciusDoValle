@@ -349,21 +349,20 @@
 
 html, body, #root {
   max-width: 100vw; /* não permite que o conteúdo ultrapasse a largura da viewport */
-  overflow-x: hidden; /* evita área branca ao arrastar horizontalmente */
+  /* "clip" em vez de "hidden": evita a área branca ao arrastar horizontalmente
+     sem o efeito colateral do CSS que promove overflow-y para "auto" nos três
+     elementos (html, body, #root), o que criava múltiplas áreas de scroll
+     internas concorrendo entre si e deixava a rolagem da página inconsistente. */
+  overflow-x: clip;
   touch-action: pan-y; /* permite apenas scroll vertical por toque */
 
   /* evitar a aba branca ao 'bater' no topo/rodapé (bounce) */
   margin: 0;
+  height: 100%;
   background-color: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior-y: contain; /* previne que o bounce mostre fundo branco */
-}
-
-/* altura fixa apenas no html: body/#root crescem com o conteúdo, mantendo
-   o scroll real na window (necessário para o hero com scroll-expand) */
-html {
-  height: 100%;
 }
 
 /* também garantir que imagens e elementos grandes respeitem a viewport */
