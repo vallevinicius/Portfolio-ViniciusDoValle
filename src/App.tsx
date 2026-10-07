@@ -1,38 +1,22 @@
-import { useState } from 'react';
-import { Header } from './components/Layout/Header';
-import { TopNav } from './components/Layout/TopNav';
-import { Footer } from './components/Layout/Footer';
-import { About } from './components/tabs/About';
-import { Experience } from './components/tabs/Experience';
-import { Projects } from './components/tabs/Projects';
-import { Contact } from './components/tabs/Contact';
-import { Certification } from './components/tabs/Certification';
+import { Nav } from './components/Nav';
+import { Hero } from './components/Hero';
+import { Work } from './components/Work';
+import { Background } from './components/Background';
+import { Awards, Certifications } from './components/Certifications';
+import { Contact } from './components/Contact';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('about');
-
-  const skills = [
-    'Java', 'Spring Boot', 'Node.js', 'TypeScript', 
-    'PostgreSQL', 'MySQL', 'Docker', 'Git', 'AWS', 'APIs REST'
-  ];
-
   return (
-    <div className="min-h-screen bg-[#060913] text-slate-400 font-sans p-4 md:p-6 selection:bg-blue-500/30">
-      <TopNav activeTab={activeTab} setActiveTab={setActiveTab} />
-
-      <div className="pt-20 max-w-5xl mx-auto space-y-6">
-        <Header setActiveTab={setActiveTab} />
-
-        <main className="min-h-[300px]">
-          {activeTab === 'about' && <About skills={skills} />}
-          {activeTab === 'experience' && <Experience />}
-          {activeTab === 'certification' && <Certification />}
-          {activeTab === 'projects' && <Projects />}
-          {activeTab === 'contact' && <Contact />}
-        </main>
-
-        <Footer />
-      </div>
-    </div>
+    <>
+      <Nav />
+      <main>
+        <Hero />
+        <Work />
+        <Background />
+        <Awards />
+        <Certifications />
+      </main>
+      <Contact />
+    </>
   );
 }

@@ -1,372 +1,94 @@
 @import "tailwindcss";
 
-/* Novas variáveis de design moderno / paleta */
-:root {
-  --bg: #071023; /* tom profundo para fundo */
-  --card-bg: rgba(10,14,22,0.6); /* transparência para efeito glass */
-  --surface: #0b1220;
-  --text: #e6eef8;
-  --muted: #9aa4b2;
-  --primary: #7c5cff; /* violeta/indigo moderno */
-  --accent: #c3bbc9; /* ciano vibrante */
-  --accent-2: #ff6bcb; /* rosa vibrante */
-  --glass: rgba(255,255,255,0.03);
-  --card-radius: 0.75rem;
-  --topnav-height: 64px; /* altura da topnav para posicionar painel mobile */
+@theme {
+  --color-foam: #e9efec;
+  --color-ink: #0b2a33;
+  --color-tide: #1f6f78;
+  --color-buoy: #ff4f1a;
+  --color-sand: #d8cfba;
+  --color-muted: #475f66;
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Classes utilitárias da nova identidade (utilize em componentes) */
-.brand-card {
-  background: linear-gradient(180deg, rgba(11,18,32,0.72), rgba(6,10,20,0.6));
-  border: 1px solid rgba(255,255,255,0.03);
-  border-radius: var(--card-radius);
+html {
+  scroll-behavior: smooth;
+  background: var(--color-foam);
+  -webkit-font-smoothing: antialiased;
 }
 
-.brand-tag {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.03);
-  color: var(--muted);
-  padding: 0.18rem 0.55rem;
-  font-size: 0.67rem;
-  border-radius: 0.375rem;
-  text-transform: uppercase;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
-  letter-spacing: 0.06em;
+body {
+  margin: 0;
+  background: var(--color-foam);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  overflow-x: clip;
 }
 
-.brand-accent {
-  color: var(--accent) !important;
+section[id] {
+  scroll-margin-top: 4.5rem;
 }
 
-.text-muted {
-  color: var(--muted) !important;
+::selection {
+  background: var(--color-buoy);
+  color: var(--color-foam);
 }
 
-.brand-left-border {
-  border-left-width: 4px !important;
-  border-left-style: solid !important;
+:focus-visible {
+  outline: 3px solid var(--color-buoy);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
-/* Atualização do featured-left para usar paleta moderna */
-.featured-left::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.6rem;
-  bottom: 0.6rem;
-  width: 8px;
-  border-radius: 8px;
-  background: linear-gradient(180deg, var(--primary) 0%, var(--accent) 50%, var(--accent-2) 100%);
-  box-shadow: 0 0 28px rgba(124,92,255,0.18);
-  z-index: 1;
-  transform-origin: center;
-  animation: featured-pulse 3.5s ease-in-out infinite;
-}
-
-/* cursor de digitação com tom de destaque */
-.type-cursor {
-  background: linear-gradient(180deg, var(--accent), var(--accent));
-}
-
-/* ajustar image-card para nova paleta */
-.image-card {
-  position: relative;
+/* The one orchestrated moment: the name rises into place on load. */
+.rise {
+  display: block;
   overflow: hidden;
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255,255,255,0.03);
-  background-color: rgba(8,12,20,0.28);
+  padding-bottom: 0.08em;
+}
+.rise > span {
+  display: block;
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.rise:nth-child(2) > span {
+  animation-delay: 0.12s;
 }
 
-/* adaptar labels e títulos para a paleta */
-.image-card .card-label { color: var(--accent); }
-.image-card .card-title { color: var(--text); }
-.image-card .card-sub { color: var(--muted); }
-
-/* utility para botões e links de chamada */
-.brand-link {
-  color: var(--accent);
-  text-decoration: none;
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
-@layer utilities {
-  .card-border-custom {
-    /* Borda fina e flat */
-    border: 1px solid var(--border-color, rgba(148,163,184,0.06));
-    border-radius: 0.5rem;
-    background-clip: padding-box;
-    /* efeito mínimo para manter flat */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .rise > span {
+    animation: none;
+  }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
     transition: none;
   }
-
-  .card-border-custom:hover {
-    /* remover box-shadow e brilho para visual flat */
-    box-shadow: none;
-    filter: none;
-  }
-
-  /* Box específico para status (borda verde sutil mais visível) */
-  .status-box {
-    --status-border: rgba(16,185,129,0.18); /* verde suave */
-    border: 1px solid var(--status-border);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    background-color: transparent;
-    position: relative;
-    z-index: 0;
-  }
-
-  /* glowing border variante */
-  .status-box.glow-border {
-    --glow-color-green: rgba(16,185,129,0.65);
-    --glow-color-blue: rgba(59,130,246,0.45);
-    --glow-color-orange: rgba(249,115,22,0.38);
-  }
-
-  .status-box.glow-border::before {
-    /* glow layer (blurred gradient) */
-    content: '';
-    position: absolute;
-    inset: -6px;
-    border-radius: 0.6rem;
-    background: linear-gradient(90deg, var(--glow-color-green), var(--glow-color-blue), var(--glow-color-orange));
-    filter: blur(10px);
-    opacity: 0.9;
-    z-index: -2;
-    mix-blend-mode: screen;
-    animation: pulse-glow 3.5s ease-in-out infinite;
-  }
-
-  .status-box.glow-border::after {
-    /* thin colored border on top of the card */
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 0.5rem;
-    z-index: -1;
-    border: 1px solid rgba(34,197,94,0.18);
-    box-shadow: 0 0 18px rgba(16,185,129,0.12) inset;
-    pointer-events: none;
-  }
-
-  @keyframes pulse-glow {
-    0% { transform: scale(1); opacity: 0.7; }
-    50% { transform: scale(1.03); opacity: 1; }
-    100% { transform: scale(1); opacity: 0.7; }
-  }
-
-  /* itens do status com ponto colorido maior e alinhamento */
-  .status-item {
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-  }
-
-  .status-dot {
-    width: 0.75rem; /* 12px */
-    height: 0.75rem;
-    border-radius: 9999px;
-    flex-shrink: 0;
-  }
-
-  .status-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-
-  .image-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 0.75rem;
-    border: 1px solid rgba(148,163,184,0.04);
-    background-color: rgba(6,8,15,0.25);
-  }
-
-  .image-card .card-image {
-    position: absolute;
-    inset: 0;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    filter: brightness(0.28) saturate(0.9);
-    transform: scale(1.02);
-  }
-
-  .image-card .card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, rgba(8,12,20,0.9) 0%, rgba(8,12,20,0.6) 30%, rgba(8,12,20,0.2) 60%, rgba(8,12,20,0.0) 100%);
-  }
-
-  .image-card .card-content {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-  }
-
-  .image-card .card-label {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
-    letter-spacing: 0.22em;
-    font-size: 10px;
-    font-weight: 700;
-    color: #3aa0ff;
-    text-transform: uppercase;
-    margin-bottom: 0.25rem;
-  }
-
-  .image-card .card-title {
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 1rem;
-  }
-
-  .image-card .card-sub {
-    color: rgba(148,163,184,0.8);
-    font-size: 0.85rem;
-  }
-
-  /* Barra lateral brilhante para featured projects */
-  .featured-left {
-    position: relative;
-    overflow: visible;
-  }
-
-  /* Ajuste para garantir que o conteúdo do card não seja coberto pela barra */
-  .featured-left > * {
-    position: relative;
-    z-index: 2;
-  }
-
-  .type-cursor {
-    display: inline-block;
-    width: 10px;
-    height: 1.05em;
-    background: linear-gradient(180deg, #cbd5e1, #cbd5e1);
-    margin-left: 6px;
-    animation: blink-cursor 1s steps(1) infinite;
-    vertical-align: middle;
-    border-radius: 2px;
-    opacity: 0.95;
-  }
-
-  @keyframes blink-cursor {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-
-  /* Top-nav (fixed) */
-  .top-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 50;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-    backdrop-filter: blur(6px);
-  }
-
-  .top-nav .cta {
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    color: white;
-    padding: 0.5rem 0.9rem;
-    border-radius: 0.5rem;
-    font-weight: 700;
-  }
-
-  /* Hero */
-  .hero { padding: 1.25rem; }
-  .hero .brand-tag { margin-top: 0.25rem; }
-
-  /* Tabs row as chip list */
-  .tabs-row { display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; margin-top:1rem; }
-  .tab-chip { padding:0.4rem 0.7rem; border-radius:999px; background:transparent; border:1px solid rgba(255,255,255,0.03); color:var(--muted); font-family:ui-monospace,monospace; font-size:0.75rem; }
-  .tab-chip--active { background:linear-gradient(90deg,var(--primary),var(--accent)); color:white; border: none; }
-
-  /* Projects grid specifics for option 2 */
-  .projects-grid { display:grid; grid-template-columns: repeat(1, minmax(0,1fr)); gap:1rem; }
-  @media(min-width:768px){ .projects-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-  @media(min-width:1024px){ .projects-grid { grid-template-columns: repeat(3, minmax(0,1fr)); grid-auto-rows: 1fr; } }
-
-  .project-card { border-radius: 0.75rem; padding:1rem; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); }
-  .project-card--featured { grid-column: span 2; grid-row: span 2; }
-
-  /* FAB */
-  .fab { position:fixed; right:20px; bottom:20px; width:54px; height:54px; border-radius:999px; display:flex; align-items:center; justify-content:center; background:linear-gradient(90deg,var(--primary),var(--accent)); color:white; box-shadow: 0 6px 30px rgba(124,92,255,0.18); z-index:40; }
-
-  /* small utilities */
-  .brand-link { color: var(--accent); text-decoration: none; }
-  .cta { background: linear-gradient(90deg, var(--primary), var(--accent)); color: white; padding: 0.5rem 0.8rem; border-radius: 0.5rem; font-weight: 700; }
-
-  /* Cores específicas por aba (usar quando ativo) */
-  .tab-color-about { color: var(--accent) !important; }
-  .tab-color-experience { color: var(--primary) !important; }
-  .tab-color-certification { color: var(--accent-2) !important; }
-
-  /* Contact como CTA com gradiente */
-  .tab-color-contact {
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    color: white !important;
-    padding: 0.4rem 0.8rem;
-    border-radius: 0.5rem;
-    font-weight: 700;
-  }
-
-  .tab-color-contact:hover { filter: brightness(1.02); }
-
-  /* Hover states suaves */
-  .top-nav__center button:hover { transform: translateY(-1px); transition: transform 120ms ease; }
-
-  /* Mobile menu styles */
-  .mobile-menu { top: var(--topnav-height); height: calc(100vh - var(--topnav-height)); overflow-y: auto; -webkit-overflow-scrolling: touch; }
-  .mobile-closed { transform: translateY(-8px); opacity: 0; pointer-events: none; }
-  .mobile-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
-
-  /* Ensure top-nav stays above other content but below modal dialogs */
-  .top-nav { z-index: 50; }
-
-}
-
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-in {
-  animation: fade-in 0.4s ease-out forwards;
-}
-
-/* Prevent horizontal overflow on small screens (fix mobile white gap when swiping sideways) */
-:root {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-html, body, #root {
-  max-width: 100vw; /* não permite que o conteúdo ultrapasse a largura da viewport */
-  /* "clip" em vez de "hidden": evita a área branca ao arrastar horizontalmente
-     sem o efeito colateral do CSS que promove overflow-y para "auto" nos três
-     elementos (html, body, #root), o que criava múltiplas áreas de scroll
-     internas concorrendo entre si e deixava a rolagem da página inconsistente. */
-  overflow-x: clip;
-  touch-action: pan-y; /* permite apenas scroll vertical por toque */
-
-  /* evitar a aba branca ao 'bater' no topo/rodapé (bounce) */
-  margin: 0;
-  height: 100%;
-  background-color: var(--bg);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overscroll-behavior-y: contain; /* previne que o bounce mostre fundo branco */
-}
-
-/* também garantir que imagens e elementos grandes respeitem a viewport */
-img, video, svg {
-  max-width: 100%;
-  height: auto;
 }
