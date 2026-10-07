@@ -38,14 +38,14 @@ export function Hero() {
           </div>
         </div>
 
-        <figure className="relative mx-auto w-full max-w-[17rem] lg:col-span-4 lg:max-w-none">
-          <div aria-hidden className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl border-2 border-buoy bg-buoy/10" />
+        <figure className="relative mx-auto w-full max-w-[20rem] pb-3 lg:col-span-4 lg:max-w-none">
+          <div aria-hidden className="absolute inset-0 left-3 top-3 rounded-2xl border-2 border-buoy bg-buoy/10" />
           <img
             src="/Foto%20perfil.jpeg"
             alt="Portrait of Vinicius Valle"
             width={480}
             height={600}
-            className="relative aspect-[4/5] w-full rounded-2xl object-cover object-[55%_75%]"
+            className="relative aspect-[4/5] w-[calc(100%-0.75rem)] rounded-2xl object-cover object-[55%_75%]"
           />
         </figure>
       </div>

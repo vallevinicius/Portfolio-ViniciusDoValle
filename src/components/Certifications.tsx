@@ -74,7 +74,7 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
   }, [paused, i, setI]);
 
   const btn =
-    'absolute top-[40%] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/70 text-foam transition-colors hover:bg-buoy hover:text-ink';
+    'absolute top-[calc(50%-1rem)] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/70 text-foam transition-colors hover:bg-buoy hover:text-ink';
 
   return (
     <div
@@ -108,7 +108,7 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
       <button type="button" aria-label="Next photo" onClick={() => go(i + 1)} className={`${btn} right-3`}>
         <FiChevronRight aria-hidden className="h-6 w-6" />
       </button>
-      <div className="mt-4 flex justify-center gap-2">
+      <div className="mt-2 flex justify-center">
         {photos.map((p, n) => (
           <button
             key={p.src}
@@ -116,8 +116,10 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
             aria-label={`Show photo ${n + 1}`}
             aria-current={n === i}
             onClick={() => setI(n)}
-            className={`h-2.5 rounded-full transition-all ${n === i ? 'w-8 bg-buoy' : 'w-2.5 bg-ink/30'}`}
-          />
+            className="group flex h-8 items-center px-1"
+          >
+            <span className={`block h-2.5 rounded-full transition-all ${n === i ? 'w-8 bg-buoy' : 'w-2.5 bg-ink/30'}`} />
+          </button>
         ))}
       </div>
     </div>
