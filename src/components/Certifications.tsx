@@ -2,68 +2,41 @@ import { useEffect, useState } from 'react';
 import { FiArrowUpRight, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FaTrophy, FaMedal } from 'react-icons/fa';
 import { Section } from './Section';
+import { useLang } from '../i18n';
 
 const awards = [
   {
-    place: 'Champion',
+    key: 'champion',
     project: 'Mei De Saqua',
     url: 'https://meidesaqua.saquarema.rj.gov.br/',
     Icon: FaTrophy,
     badge: 'bg-buoy text-ink',
   },
   {
-    place: 'Runner-up',
+    key: 'runnerUp',
     project: 'Aqui Tem ODS',
     url: 'https://aquitemods.saquarema.rj.gov.br/',
     Icon: FaMedal,
     badge: 'bg-ink text-foam',
   },
-];
+] as const;
 
 // `award` links a photo to the card it belongs to (index in `awards`).
 const photos = [
-  {
-    src: '/Foto%20lucimar%203.jpeg',
-    alt: 'The Mei De Saqua team on stage under the 1st place screen',
-    caption: 'Champion: Mei De Saqua',
-    award: 0,
-  },
-  {
-    src: '/Foto%20lucimar%201.jpeg',
-    alt: 'The Aqui Tem ODS team on stage under the 2nd place screen',
-    caption: 'Runner-up: Aqui Tem ODS',
-    award: 1,
-  },
-  {
-    src: '/Foto%20lucimar%202.jpeg',
-    alt: 'The two developers and the mayor holding the award trophies',
-    caption: 'The trophies with the mayor',
-    award: null,
-  },
+  { src: '/Foto%20lucimar%203.jpeg', award: 0 },
+  { src: '/Foto%20lucimar%201.jpeg', award: 1 },
+  { src: '/Foto%20lucimar%202.jpeg', award: null },
 ];
 
-const certs = [
-  {
-    title: 'Java: object-oriented programming',
-    date: 'Feb 2026',
-    about: 'Core OOP concepts and advanced practices for building robust Java software.',
-    url: 'https://cursos.alura.com.br/formalCertificate/e94b5dd6-8f74-4c26-9c18-5d7b25e8125c',
-  },
-  {
-    title: 'Git and GitHub: version control and collaboration',
-    date: 'Oct 2025',
-    about: 'From the basics to collaboration workflows in software projects.',
-    url: 'https://cursos.alura.com.br/formalCertificate/01cb0146-5280-4e3a-8b00-aff49197ded2',
-  },
-  {
-    title: 'MySQL',
-    date: 'Aug 2025',
-    about: 'Database modeling and query optimization.',
-    url: 'https://cursos.alura.com.br/formalCertificate/7c31e5d7-c9e8-42ad-a09d-ff222280602e',
-  },
+const certUrls = [
+  'https://cursos.alura.com.br/formalCertificate/e94b5dd6-8f74-4c26-9c18-5d7b25e8125c',
+  'https://cursos.alura.com.br/formalCertificate/01cb0146-5280-4e3a-8b00-aff49197ded2',
+  'https://cursos.alura.com.br/formalCertificate/7c31e5d7-c9e8-42ad-a09d-ff222280602e',
 ];
 
 function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
+  const { t } = useLang();
+  const a = t.awards;
   const [paused, setPaused] = useState(false);
   const go = (n: number) => setI((n + photos.length) % photos.length);
 
@@ -80,7 +53,7 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
     <div
       role="group"
       aria-roledescription="carousel"
-      aria-label="Award photos"
+      aria-label={a.group}
       className="relative"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -94,18 +67,18 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
         >
           {photos.map((p, n) => (
             <figure key={p.src} aria-hidden={n !== i} className="relative w-full shrink-0">
-              <img src={p.src} alt={p.alt} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+              <img src={p.src} alt={a.photos[n].alt} loading="lazy" className="aspect-[4/3] w-full object-cover" />
               <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 to-transparent px-5 pb-4 pt-12 font-display text-lg font-bold text-foam">
-                {p.caption}
+                {a.photos[n].caption}
               </figcaption>
             </figure>
           ))}
         </div>
       </div>
-      <button type="button" aria-label="Previous photo" onClick={() => go(i - 1)} className={`${btn} left-3`}>
+      <button type="button" aria-label={a.prev} onClick={() => go(i - 1)} className={`${btn} left-3`}>
         <FiChevronLeft aria-hidden className="h-6 w-6" />
       </button>
-      <button type="button" aria-label="Next photo" onClick={() => go(i + 1)} className={`${btn} right-3`}>
+      <button type="button" aria-label={a.next} onClick={() => go(i + 1)} className={`${btn} right-3`}>
         <FiChevronRight aria-hidden className="h-6 w-6" />
       </button>
       <div className="mt-2 flex justify-center">
@@ -113,7 +86,7 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
           <button
             key={p.src}
             type="button"
-            aria-label={`Show photo ${n + 1}`}
+            aria-label={`${a.show} ${n + 1}`}
             aria-current={n === i}
             onClick={() => setI(n)}
             className="group flex h-8 items-center px-1"
@@ -127,20 +100,22 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
 }
 
 export function Awards() {
+  const { t } = useLang();
+  const a = t.awards;
   const [i, setI] = useState(0);
   const active = photos[i].award;
 
   return (
-    <Section id="awards" title="Awards">
+    <Section id="awards" title={a.title}>
       <p className="mb-8 max-w-[40rem] text-lg text-muted">
-        Prêmio Sebrae Prefeitura Empreendedora. Both projects were recognised, and the photos below are from the ceremony.
+        {a.intro}
       </p>
       <div className="grid items-start gap-8 xl:grid-cols-[1.4fr_1fr]">
         <PhotoCarousel i={i} setI={setI} />
         <div className="grid gap-4">
-          {awards.map(({ place, project, url, Icon, badge }, n) => (
+          {awards.map(({ key, project, url, Icon, badge }, n) => (
             <a
-              key={place}
+              key={key}
               href={url}
               target="_blank"
               rel="noreferrer"
@@ -156,9 +131,9 @@ export function Awards() {
                 <Icon className="h-7 w-7" />
               </span>
               <div className="flex-1">
-                <h3 className="font-display text-2xl font-extrabold leading-tight">{place}</h3>
+                <h3 className="font-display text-2xl font-extrabold leading-tight">{a[key]}</h3>
                 <p className="mt-1 font-medium">{project}</p>
-                <p className="text-base text-muted">Visit the website</p>
+                <p className="text-base text-muted">{a.visit}</p>
               </div>
               <FiArrowUpRight aria-hidden className="h-6 w-6 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
@@ -170,13 +145,14 @@ export function Awards() {
 }
 
 export function Certifications() {
+  const { t } = useLang();
   return (
-    <Section id="certifications" title="Certificates">
+    <Section id="certifications" title={t.certs.title}>
       <ul className="border-t border-ink/30">
-        {certs.map((c) => (
+        {t.certs.items.map((c, n) => (
           <li key={c.title} className="border-b border-ink/30">
             <a
-              href={c.url}
+              href={certUrls[n]}
               target="_blank"
               rel="noreferrer"
               className="group -mx-3 grid gap-1 px-3 py-5 transition-colors hover:bg-sand/50 sm:grid-cols-[1fr_auto] sm:gap-8"

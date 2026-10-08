@@ -1,43 +1,45 @@
 import { Section } from './Section';
+import { useLang } from '../i18n';
 
 const skills = [
-  { group: 'Back end', items: 'Java, Spring Boot, Node.js, REST APIs' },
-  { group: 'Front end', items: 'TypeScript, React' },
-  { group: 'Data', items: 'PostgreSQL, MySQL' },
-  { group: 'Tools', items: 'Docker, Git, AWS' },
-];
+  { group: 'backEnd', items: 'Java, Spring Boot, Node.js, REST APIs' },
+  { group: 'frontEnd', items: 'TypeScript, React' },
+  { group: 'data', items: 'PostgreSQL, MySQL' },
+  { group: 'tools', items: 'Docker, Git, AWS' },
+] as const;
 
 export function Background() {
+  const { t } = useLang();
+  const b = t.background;
   return (
-    <Section id="background" title="Background">
+    <Section id="background" title={b.title}>
       <div className="space-y-14">
         <div>
-          <h3 className="font-display text-2xl font-bold">Prefeitura de Saquarema</h3>
-          <p className="mt-1 text-muted">Junior full-stack developer (internship), Feb 2025 to present</p>
+          <h3 className="font-display text-2xl font-bold">{b.cityHall}</h3>
+          <p className="mt-1 text-muted">{b.cityHallRole}</p>
           <p className="mt-4 max-w-prose">
-            I build end-to-end APIs for high-demand city hall projects. The systems I work on handle
-            registration peaks of more than 1,000 sign-ups and thousands of daily visits.
+            {b.cityHallText}
           </p>
           <p className="mt-3 font-medium">TypeScript, React, Node.js, MySQL</p>
         </div>
 
         <div>
-          <h3 className="font-display text-2xl font-bold">Bachelor in Computer Science</h3>
-          <p className="mt-1 text-muted">UNESA (Estácio de Sá University), Jan 2023 to Nov 2026</p>
-          <p className="mt-4 max-w-prose">Currently in the 7th of 8 semesters.</p>
+          <h3 className="font-display text-2xl font-bold">{b.degree}</h3>
+          <p className="mt-1 text-muted">{b.degreeSchool}</p>
+          <p className="mt-4 max-w-prose">{b.degreeText}</p>
         </div>
 
         <div>
-          <h3 className="font-display text-2xl font-bold">English</h3>
-          <p className="mt-1 text-muted">Cultura Inglesa, Master 1 (C1/C2)</p>
+          <h3 className="font-display text-2xl font-bold">{b.english}</h3>
+          <p className="mt-1 text-muted">{b.englishText}</p>
         </div>
 
         <div>
-          <h3 className="font-display text-2xl font-bold">Skills</h3>
+          <h3 className="font-display text-2xl font-bold">{b.skills}</h3>
           <dl className="mt-4 border-t border-ink/30">
             {skills.map((s) => (
               <div key={s.group} className="grid gap-1 border-b border-ink/30 py-3 sm:grid-cols-[10rem_1fr] sm:gap-6">
-                <dt className="font-semibold">{s.group}</dt>
+                <dt className="font-semibold">{b.groups[s.group]}</dt>
                 <dd className="text-muted">{s.items}</dd>
               </div>
             ))}

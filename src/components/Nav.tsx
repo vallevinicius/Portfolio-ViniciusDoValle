@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
+import { useLang } from '../i18n';
 
 const links = [
-  { href: '#work', label: 'Projects' },
-  { href: '#background', label: 'Background' },
-  { href: '#awards', label: 'Awards' },
-  { href: '#certifications', label: 'Certificates' },
-  { href: '#contact', label: 'Contact' },
-];
+  { href: '#work', key: 'projects' },
+  { href: '#background', key: 'background' },
+  { href: '#awards', key: 'awards' },
+  { href: '#certifications', key: 'certificates' },
+  { href: '#contact', key: 'contact' },
+] as const;
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const { t, toggle } = useLang();
+  const n = t.nav;
 
   return (
     <header className="sticky top-0 z-50 border-b border-ink/15 bg-foam/95 backdrop-blur">
@@ -19,16 +22,28 @@ export function Nav() {
           Vinicius Valle
         </a>
 
-        <button
-          type="button"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          aria-controls="main-nav"
-          onClick={() => setOpen((o) => !o)}
-          className="-mr-2 flex h-11 w-11 items-center justify-center sm:hidden"
-        >
-          {open ? <FiX aria-hidden className="h-6 w-6" /> : <FiMenu aria-hidden className="h-6 w-6" />}
-        </button>
+        <div className="ml-auto flex items-center gap-1 sm:order-last sm:ml-0">
+          <button
+            type="button"
+            onClick={toggle}
+            lang={n.switchShort === 'PT' ? 'pt' : 'en'}
+            aria-label={n.switchTo}
+            title={n.switchTo}
+            className="flex h-11 items-center rounded-full border-2 border-ink px-3.5 text-sm font-bold transition-colors hover:bg-ink hover:text-foam"
+          >
+            {n.switchShort}
+          </button>
+          <button
+            type="button"
+            aria-label={open ? n.closeMenu : n.openMenu}
+            aria-expanded={open}
+            aria-controls="main-nav"
+            onClick={() => setOpen((o) => !o)}
+            className="flex h-11 w-11 items-center justify-center sm:hidden"
+          >
+            {open ? <FiX aria-hidden className="h-6 w-6" /> : <FiMenu aria-hidden className="h-6 w-6" />}
+          </button>
+        </div>
 
         <nav
           id="main-nav"
@@ -42,7 +57,7 @@ export function Nav() {
               onClick={() => setOpen(false)}
               className="border-t border-ink/10 py-3.5 text-lg font-medium first:border-t-0 sm:border-0 sm:py-3 sm:text-base sm:underline-offset-8 sm:decoration-2 sm:hover:underline sm:hover:decoration-buoy"
             >
-              {l.label}
+              {n[l.key]}
             </a>
           ))}
         </nav>

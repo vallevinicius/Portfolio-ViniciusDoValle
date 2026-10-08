@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { Section } from './Section';
+import { useLang } from '../i18n';
 
 interface Project {
   name: string;
@@ -12,9 +13,9 @@ interface Project {
 
 const USER = 'vallevinicius';
 const GITHUB = `https://github.com/${USER}`;
-const FEATURED_REPOS = ['MeiDeSaqua-Back', 'AquiTemODS-Back'];
+const FEATURED_REPOS = ['MeiDeSaqua-Back', 'AquiTemODS-Back', 'MeideSaqua-Front', 'AquiTemODS-Front'];
 const PER_PAGE = 6;
-const CACHE_KEY = 'gh-repos-v2';
+const CACHE_KEY = 'gh-repos-v3';
 
 const featured: Project[] = [
   {
@@ -78,7 +79,7 @@ function useGithubProjects() {
     if (cached) return;
     const controller = new AbortController();
 
-    fetch(`https://api.github.com/users/${USER}/repos?per_page=100&sort=pushed`, {
+    fetch(`https://api.github.com/users/${USER}/repos?per_page=100&sort=pushed&type=all`, {
       signal: controller.signal,
       headers: { Accept: 'application/vnd.github+json' },
     })
@@ -88,7 +89,7 @@ function useGithubProjects() {
       })
       .then((repos) => {
         const list = repos
-          .filter((r) => !r.fork && !r.archived && r.name.toLowerCase() !== USER && !FEATURED_REPOS.includes(r.name))
+          .filter((r) => !r.fork && !r.archived && r.name.toLowerCase() !== USER && !FEATURED_REPOS.some((f) => f.toLowerCase() === r.name.toLowerCase()))
           .sort((a, b) => +new Date(b.pushed_at) - +new Date(a.pushed_at))
           .map(toProject);
         try {
@@ -110,6 +111,8 @@ function useGithubProjects() {
 }
 
 export function Work() {
+  const { t } = useLang();
+  const w = t.work;
   const { projects, status } = useGithubProjects();
   const [page, setPage] = useState(1);
   const totalPages = Math.max(1, Math.ceil(projects.length / PER_PAGE));
@@ -121,7 +124,7 @@ export function Work() {
   };
 
   return (
-    <Section id="work" title="Projects">
+    <Section id="work" title={w.title}>
       <div className="grid gap-10 md:grid-cols-2">
         {featured.map((p) => (
           <article key={p.name} className="border-t-[6px] border-buoy pt-5">
@@ -129,7 +132,7 @@ export function Work() {
               <h3 className="font-display text-3xl font-extrabold leading-tight tracking-tight">{p.name}</h3>
               <span className="text-muted">{p.year}</span>
             </div>
-            <p className="mt-3 max-w-prose text-muted">{p.summary}</p>
+            <p className="mt-3 max-w-prose text-muted">{w.featured[p.name] ?? p.summary}</p>
             <p className="mt-4 font-medium">{p.stack.join(', ')}</p>
             <a
               href={p.repo}
@@ -137,7 +140,7 @@ export function Work() {
               rel="noreferrer"
               className="mt-4 inline-flex items-center gap-1 font-semibold underline decoration-buoy decoration-2 underline-offset-4"
             >
-              View the API on GitHub
+              {w.viewApi}
               <FiArrowUpRight aria-hidden className="h-5 w-5" />
             </a>
           </article>
@@ -145,16 +148,16 @@ export function Work() {
       </div>
 
       <h3 id="more-work" className="mb-2 mt-16 scroll-mt-24 font-display text-xl font-bold">
-        From GitHub
+        {w.fromGithub}
       </h3>
 
-      {status === 'loading' && <p className="border-t border-ink/30 py-6 text-muted">Loading repositories…</p>}
+      {status === 'loading' && <p className="border-t border-ink/30 py-6 text-muted">{w.loading}</p>}
 
       {status === 'error' && (
         <p className="border-t border-ink/30 py-6">
-          Could not load the repositories from GitHub right now.{' '}
+          {w.error}{' '}
           <a href={GITHUB} target="_blank" rel="noreferrer" className="font-semibold underline decoration-buoy decoration-2 underline-offset-4">
-            Open my GitHub profile
+            {w.openProfile}
           </a>
         </p>
       )}
@@ -163,12 +166,12 @@ export function Work() {
         <>
           <ul className="border-t border-ink/30">
             {visible.map((p) => (
-              <li key={p.name} className="border-b border-ink/30">
+              <li key={p.repo} className="border-b border-ink/30">
                 <a
                   href={p.repo}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={`${p.name}, open on GitHub`}
+                  aria-label={`${p.name}, ${w.openOnGithub}`}
                   className="group -mx-3 grid gap-1 px-3 py-5 transition-colors hover:bg-sand/50 sm:grid-cols-[1fr_14rem_4.5rem] sm:items-baseline sm:gap-6"
                 >
                   <div className="min-w-0">
@@ -186,21 +189,21 @@ export function Work() {
           </ul>
 
           {totalPages > 1 && (
-            <nav aria-label="Project pages" className="mt-8 flex flex-wrap items-center gap-2">
+            <nav aria-label={w.pages} className="mt-8 flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 onClick={() => goTo(page - 1)}
                 disabled={page === 1}
                 className="rounded-full px-4 py-2 font-semibold hover:bg-sand/60 disabled:opacity-30 disabled:hover:bg-transparent"
               >
-                Previous
+                {w.previous}
               </button>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
                 <button
                   key={n}
                   type="button"
                   onClick={() => goTo(n)}
-                  aria-label={`Page ${n}`}
+                  aria-label={`${w.page} ${n}`}
                   aria-current={n === page ? 'page' : undefined}
                   className={`h-10 w-10 rounded-full font-semibold ${n === page ? 'bg-ink text-foam' : 'hover:bg-sand/60'}`}
                 >
@@ -213,7 +216,7 @@ export function Work() {
                 disabled={page === totalPages}
                 className="rounded-full px-4 py-2 font-semibold hover:bg-sand/60 disabled:opacity-30 disabled:hover:bg-transparent"
               >
-                Next
+                {w.next}
               </button>
             </nav>
           )}

@@ -1,4 +1,5 @@
 import { Reveal } from './Reveal';
+import { useLang } from '../i18n';
 import { FaGithub, FaLinkedin, FaInstagram, FaTiktok, FaDiscord } from 'react-icons/fa';
 
 const socials = [
@@ -10,11 +11,12 @@ const socials = [
 ];
 
 export function Contact() {
+  const { t } = useLang();
   return (
     <footer id="contact" className="scroll-mt-16 bg-ink text-foam">
       <Reveal className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
         <h2 className="max-w-3xl font-display text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[0.95] tracking-[-0.035em]">
-          Have a role or a project in mind? Write to me.
+          {t.contact.title}
         </h2>
 
         <a
@@ -41,7 +43,7 @@ export function Contact() {
         </ul>
 
         <p className="mt-20 border-t border-foam/25 pt-6 text-base text-foam/70">
-          © 2026 Vinicius Valle. Based in Saquarema, Rio de Janeiro.
+          {t.contact.footer}
         </p>
       </Reveal>
     </footer>
