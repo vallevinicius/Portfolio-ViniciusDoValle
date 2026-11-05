@@ -34,22 +34,52 @@ const en = {
   },
   work: {
     title: 'Projects',
-    featured: {
-      'Mei De Saqua':
-        'A portal for micro-entrepreneurs in Saquarema. It has a management panel, public business pages, search and filters, and forms for registration and contact.',
-      'Aqui Tem ODS':
-        'An educational platform about the UN Sustainable Development Goals, with navigation by goal, content pages, filters and interactive resources.',
-    } as Record<string, string>,
-    viewApi: 'View the API on GitHub',
-    fromGithub: 'From GitHub',
-    loading: 'Loading repositories…',
-    error: 'Could not load the repositories from GitHub right now.',
-    openProfile: 'Open my GitHub profile',
-    openOnGithub: 'open on GitHub',
-    pages: 'Project pages',
-    page: 'Page',
-    previous: 'Previous',
-    next: 'Next',
+    visit: 'Visit site',
+    code: 'Code',
+    open: 'Show project',
+    gallery: 'Live projects',
+    items: {
+      mei: {
+        category: 'City hall portal',
+        text: 'A portal for micro-entrepreneurs in Saquarema. It has a management panel, public business pages, search and filters, and forms for registration and contact.',
+      },
+      ods: {
+        category: 'Project bank',
+        text: 'A bank of projects from the city halls of Rio de Janeiro: a website where city halls can come and publish their success stories, organized by Sustainable Development Goal.',
+      },
+      enigmas: {
+        category: 'Educational game',
+        text: 'A Dark Stories-style card game: each card tells a short real-world mystery linked to one Sustainable Development Goal, and flipping it reveals the solution.',
+      },
+      apaixonese: {
+        category: 'Tourism website',
+        text: 'A tourism guide to Saquarema: beaches, events, food and attractions, so visitors can plan their trip.',
+      },
+      marquo: {
+        category: 'Booking SaaS',
+        text: 'Online scheduling and management for salons and barbershops: each professional gets their own agenda, and clients book through a link without creating an account.',
+      },
+      grana: {
+        category: 'Web app',
+        text: 'A personal finance tracker with sign-in, per-user data synced across devices, and interactive charts by month, year and category.',
+      },
+      total: {
+        category: 'Company website',
+        text: 'The institutional website of a software studio: services, products, portfolio, team and a client portal that talks to the company API.',
+      },
+      rafael: {
+        category: 'Client website',
+        text: 'A real estate website for a broker: apartments, houses and land for sale and rent, with direct contact with a broker.',
+      },
+      pratagy: {
+        category: 'Client website',
+        text: 'The website of a guesthouse between the beach and the lagoon, with rooms, amenities and online booking.',
+      },
+      vivamar: {
+        category: 'Client website',
+        text: 'The website of a seafront guesthouse, with rooms and online booking.',
+      },
+    } as Record<string, { category: string; text: string }>,
   },
   background: {
     title: 'Background',
@@ -147,22 +177,52 @@ const pt: Copy = {
   },
   work: {
     title: 'Projetos',
-    featured: {
-      'Mei De Saqua':
-        'Um portal para microempreendedores de Saquarema. Tem painel de gestão, páginas públicas dos negócios, busca e filtros, e formulários de cadastro e contato.',
-      'Aqui Tem ODS':
-        'Uma plataforma educacional sobre os Objetivos de Desenvolvimento Sustentável da ONU, com navegação por objetivo, páginas de conteúdo, filtros e recursos interativos.',
+    visit: 'Visitar site',
+    code: 'Código',
+    open: 'Mostrar projeto',
+    gallery: 'Projetos no ar',
+    items: {
+      mei: {
+        category: 'Portal da Prefeitura de Saquarema para MEIs',
+        text: 'Um portal para microempreendedores de Saquarema. Tem painel de gestão, páginas públicas dos negócios, busca e filtros, e formulários de cadastro e contato.',
+      },
+      ods: {
+        category: 'Banco de projetos',
+        text: 'Um banco de projetos das prefeituras do Rio de Janeiro: um site onde as prefeituras podem publicar seus projetos de sucesso, organizados por Objetivo de Desenvolvimento Sustentável.',
+      },
+      enigmas: {
+        category: 'Jogo educativo',
+        text: 'Um jogo de cartas no estilo Dark Stories: cada carta traz um mistério curto do mundo real ligado a um Objetivo de Desenvolvimento Sustentável, e virá-la revela a solução.',
+      },
+      apaixonese: {
+        category: 'Site de turismo da Prefeitura de Saquarema',
+        text: 'Um guia de turismo de Saquarema: praias, eventos, gastronomia e atrações, para o visitante planejar o roteiro.',
+      },
+      marquo: {
+        category: 'SaaS de agendamento',
+        text: 'Agendamento e gestão online para salões e barbearias: cada profissional tem sua própria agenda e o cliente marca pelo link, sem criar conta.',
+      },
+      grana: {
+        category: 'Aplicação web',
+        text: 'Um controle financeiro pessoal com login, dados por usuário sincronizados entre dispositivos e gráficos interativos por mês, ano e categoria.',
+      },
+      total: {
+        category: 'Site institucional',
+        text: 'O site institucional de um estúdio de software: serviços, produtos, portfólio, equipe e um portal do cliente que conversa com a API da empresa.',
+      },
+      rafael: {
+        category: 'Site para cliente',
+        text: 'Um site imobiliário para um corretor: apartamentos, casas e terrenos para venda e locação, com contato direto com o corretor.',
+      },
+      pratagy: {
+        category: 'Site para cliente',
+        text: 'O site de uma pousada entre a praia e a lagoa, com quartos, comodidades e reserva online.',
+      },
+      vivamar: {
+        category: 'Site para cliente',
+        text: 'O site de uma pousada de frente para o mar, com quartos e reserva online.',
+      },
     },
-    viewApi: 'Ver a API no GitHub',
-    fromGithub: 'Do GitHub',
-    loading: 'Carregando repositórios…',
-    error: 'Não foi possível carregar os repositórios do GitHub agora.',
-    openProfile: 'Abrir meu perfil no GitHub',
-    openOnGithub: 'abrir no GitHub',
-    pages: 'Páginas de projetos',
-    page: 'Página',
-    previous: 'Anterior',
-    next: 'Próxima',
   },
   background: {
     title: 'Formação',
