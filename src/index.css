@@ -22,22 +22,37 @@ html {
   scroll-behavior: smooth;
   background: var(--color-ink);
   -webkit-font-smoothing: antialiased;
+  /* Phones: no sideways drift, no rubber-band bounce past the top/bottom, no pull-to-refresh jump. */
+  overflow-x: clip;
+  overscroll-behavior: none;
+  touch-action: pan-y pinch-zoom;
 }
 
-/* Ambient glow behind the whole page: liquid glass needs something to refract. */
+/* Ambient glow behind the whole page: liquid glass needs something to refract.
+   It lives on a fixed layer instead of `background-attachment: fixed`, which jumps and
+   jitters on phones when the browser toolbar shows and hides. `100lvh` keeps the layer
+   the same size while that happens. */
 body {
   margin: 0;
-  background:
-    radial-gradient(48rem 32rem at 50% 18%, color-mix(in srgb, var(--color-flame) 55%, transparent), transparent 70%),
-    radial-gradient(40rem 30rem at 100% 55%, color-mix(in srgb, var(--color-flame) 24%, transparent), transparent 70%),
-    radial-gradient(40rem 30rem at 0% 85%, color-mix(in srgb, var(--color-flame) 20%, transparent), transparent 70%),
-    var(--color-ink);
-  background-attachment: fixed;
   color: var(--color-paper);
   font-family: var(--font-sans);
   font-size: 1.0625rem;
   line-height: 1.6;
   overflow-x: clip;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100lvh;
+  pointer-events: none;
+  background:
+    radial-gradient(48rem 32rem at 50% 18%, color-mix(in srgb, var(--color-flame) 55%, transparent), transparent 70%),
+    radial-gradient(40rem 30rem at 100% 55%, color-mix(in srgb, var(--color-flame) 24%, transparent), transparent 70%),
+    radial-gradient(40rem 30rem at 0% 85%, color-mix(in srgb, var(--color-flame) 20%, transparent), transparent 70%);
 }
 
 h1,

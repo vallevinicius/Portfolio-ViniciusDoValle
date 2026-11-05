@@ -11,6 +11,16 @@ node_modules
 dist
 dist-ssr
 *.local
+*.tsbuildinfo
+.vite
+
+# Environment variables and secrets (keep a .env.example without values if one is ever needed)
+.env
+.env.*
+!.env.example
+
+# Test output
+coverage
 
 # Editor directories and files
 .vscode/*
@@ -22,3 +32,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Claude Code local settings
+.claude/settings.local.json
