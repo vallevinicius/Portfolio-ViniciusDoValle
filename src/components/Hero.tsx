@@ -23,16 +23,16 @@ export function Hero() {
 
       <div className="relative z-20 mx-auto flex min-h-[calc(100svh-4.5rem)] max-w-[100rem] flex-col justify-between gap-10 px-5 pb-8 pt-6 md:px-10 md:pb-10">
         <div className="flex flex-wrap items-start justify-between gap-4">
-          <h1 className="glass inline-flex items-center gap-3 rounded-pill px-4 py-2 text-sm font-semibold leading-none tracking-normal">
+          <h1 className="glass glass-solid inline-flex flex-wrap items-center gap-x-3 gap-y-1 rounded-pill px-5 py-2.5 text-sm font-semibold leading-tight tracking-normal sm:text-base">
             <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full rounded-pill bg-flame opacity-60 motion-safe:animate-ping" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-pill bg-flame" />
             </span>
             <span className="sr-only">Vinicius Valle — </span>
-            {h.status}
+            <span>
+              {h.status} <strong className="font-bold text-flame">{h.statusPlaces}</strong>
+            </span>
           </h1>
-
-          <p className="hidden max-w-[13rem] text-sm leading-relaxed text-paper/80 min-[1320px]:block">{h.intro}</p>
         </div>
 
         <img
@@ -73,11 +73,15 @@ export function Hero() {
                 {h.email}
               </a>
             </div>
-
-            <p className="mt-8 max-w-[28rem] text-sm leading-relaxed text-paper/80 min-[1320px]:hidden">{h.intro}</p>
           </div>
 
-          <aside className="glass rounded-card p-6 lg:col-span-4 lg:col-start-9">
+          <div className="grid gap-4 lg:col-span-4 lg:col-start-9">
+          <section aria-labelledby="about-title" className="glass rounded-card p-6">
+            <h2 id="about-title" className="font-display text-xl font-semibold tracking-tight">{h.aboutTitle}</h2>
+            <p className="mt-2 text-sm leading-relaxed text-paper/80">{h.intro}</p>
+          </section>
+
+          <aside className="glass rounded-card p-6">
             <h2 className="font-display text-xl font-semibold tracking-tight">{h.contactTitle}</h2>
             <p className="mt-1 text-sm text-paper/70">{h.contactHint}</p>
             <a
@@ -109,6 +113,7 @@ export function Hero() {
               ))}
             </ul>
           </aside>
+          </div>
         </div>
       </div>
     </section>
