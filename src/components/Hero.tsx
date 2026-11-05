@@ -1,55 +1,115 @@
+import { FiArrowUpRight, FiMail } from 'react-icons/fi';
+import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { useLang } from '../i18n';
+
+const EMAIL = 'contatoviniciusvalledev@gmail.com';
 
 export function Hero() {
   const { t } = useLang();
   const h = t.hero;
   return (
-    <section id="top" className="mx-auto max-w-6xl px-5 pb-20 pt-12 md:px-8 md:pb-28 md:pt-20">
-      <div className="grid items-end gap-12 lg:grid-cols-12">
-        <div className="lg:col-span-8">
-          <p className="mb-6 flex items-center gap-3 text-base font-medium text-tide">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-buoy opacity-60 motion-safe:animate-ping" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-buoy" />
-            </span>
-            {h.status}
-          </p>
+    <section id="top" className="relative isolate overflow-hidden">
+      {/* Giant name; the 3D character stands in front of it. */}
+      <div className="pointer-events-none absolute inset-x-0 top-[9%] z-0 flex justify-center md:top-[5%]">
+        <p
+          aria-hidden
+          className="select-none text-center font-display text-[clamp(3.5rem,17vw,18rem)] font-semibold uppercase leading-[0.74] tracking-[-0.065em] text-paper"
+        >
+          <span className="block">Vinicius</span>
+          <span className="block">Valle</span>
+        </p>
+      </div>
+      <div aria-hidden className="aura pointer-events-none absolute left-1/2 top-[42%] z-10 aspect-square w-[min(64vw,34rem)] -translate-x-1/2 -translate-y-1/2 rounded-pill" />
 
-          <h1 className="font-display text-[clamp(3.5rem,13vw,9.5rem)] font-extrabold leading-[0.88] tracking-[-0.045em]">
-            <span className="rise"><span>Vinicius</span></span>
-            <span className="rise"><span>Valle</span></span>
+      <div className="relative z-20 mx-auto flex min-h-[calc(100svh-4.5rem)] max-w-[100rem] flex-col justify-between gap-10 px-5 pb-8 pt-6 md:px-10 md:pb-10">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <h1 className="glass inline-flex items-center gap-3 rounded-pill px-4 py-2 text-sm font-semibold leading-none tracking-normal">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full rounded-pill bg-flame opacity-60 motion-safe:animate-ping" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-pill bg-flame" />
+            </span>
+            <span className="sr-only">Vinicius Valle — </span>
+            {h.status}
           </h1>
 
-          <p className="mt-8 max-w-[34rem] text-xl leading-relaxed text-muted">
-            {h.intro}
-          </p>
-
-          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-            <a
-              href="#work"
-              className="rounded-full bg-ink px-7 py-3.5 font-semibold text-foam transition-colors hover:bg-buoy hover:text-ink"
-            >
-              {h.seeProjects}
-            </a>
-            <a
-              href="mailto:contatoviniciusvalledev@gmail.com"
-              className="font-semibold underline decoration-buoy decoration-2 underline-offset-8"
-            >
-              {h.email}
-            </a>
-          </div>
+          <p className="hidden max-w-[13rem] text-sm leading-relaxed text-paper/80 min-[1320px]:block">{h.intro}</p>
         </div>
 
-        <figure className="relative mx-auto w-full max-w-[20rem] pb-3 lg:col-span-4 lg:max-w-none">
-          <div aria-hidden className="absolute inset-0 left-3 top-3 rounded-2xl border-2 border-buoy bg-buoy/10" />
-          <img
-            src="/Foto%20perfil.jpeg"
-            alt={h.photoAlt}
-            width={480}
-            height={600}
-            className="relative aspect-[4/5] w-[calc(100%-0.75rem)] rounded-2xl object-cover object-[55%_75%]"
-          />
-        </figure>
+        <img
+          src="/personagem-3d.webp"
+          alt={h.characterAlt}
+          width={1127}
+          height={1400}
+          fetchPriority="high"
+          className="cutout pointer-events-none relative z-0 mx-auto -mb-6 mt-14 h-[22rem] w-auto max-w-none select-none md:absolute md:inset-auto md:bottom-0 md:left-1/2 md:z-0 md:m-0 md:h-[92%] md:-translate-x-1/2"
+        />
+
+        <div className="relative z-10 grid items-end gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <p className="font-display text-[clamp(2.4rem,4.6vw,4.25rem)] font-semibold leading-[0.92] tracking-[-0.055em]">
+              {h.headline.map((line, i) => (
+                <span key={line} className="rise">
+                  <span className={i === h.headline.length - 1 ? 'text-flame' : undefined}>{line}</span>
+                </span>
+              ))}
+            </p>
+
+            <div className="mt-6 flex items-center gap-4">
+              <div className="glass inline-flex items-baseline gap-3 rounded-card-sm px-5 py-3">
+                <span className="font-display text-3xl font-semibold leading-none tracking-tight text-flame">{h.stat}</span>
+                <span className="max-w-[11rem] text-xs font-medium leading-snug text-paper/80">{h.statLabel}</span>
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a
+                href="#work"
+                className="inline-flex items-center gap-2 rounded-pill bg-flame px-7 py-3.5 font-semibold text-night transition-colors hover:bg-paper"
+              >
+                {h.seeProjects}
+                <FiArrowUpRight aria-hidden className="h-5 w-5" />
+              </a>
+              <a href={`mailto:${EMAIL}`} className="glass rounded-pill px-7 py-3.5 font-semibold">
+                {h.email}
+              </a>
+            </div>
+
+            <p className="mt-8 max-w-[28rem] text-sm leading-relaxed text-paper/80 min-[1320px]:hidden">{h.intro}</p>
+          </div>
+
+          <aside className="glass rounded-card p-6 lg:col-span-4 lg:col-start-9">
+            <h2 className="font-display text-xl font-semibold tracking-tight">{h.contactTitle}</h2>
+            <p className="mt-1 text-sm text-paper/70">{h.contactHint}</p>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="glass mt-4 flex items-center justify-between gap-3 rounded-pill py-2 pl-5 pr-2 text-sm font-medium"
+            >
+              <span className="min-w-0 truncate">{EMAIL}</span>
+              <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill bg-flame text-night">
+                <FiMail className="h-4 w-4" />
+              </span>
+            </a>
+            <ul className="mt-4 flex gap-2">
+              {[
+                { label: 'GitHub', href: 'https://github.com/vallevinicius', Icon: FaGithub },
+                { label: 'LinkedIn', href: 'https://www.linkedin.com/in/viniciusvalledev/', Icon: FaLinkedin },
+                { label: 'Instagram', href: 'https://www.instagram.com/vinxvp/', Icon: FaInstagram },
+              ].map(({ label, href, Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="glass flex h-10 w-10 items-center justify-center rounded-pill"
+                  >
+                    <Icon aria-hidden className="h-4 w-4" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
       </div>
     </section>
   );

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { FaAsterisk } from 'react-icons/fa';
 import { Reveal } from './Reveal';
 
 interface SectionProps {
@@ -9,14 +10,17 @@ interface SectionProps {
 
 export function Section({ id, title, children }: SectionProps) {
   return (
-    <section id={id} className="border-t-2 border-ink">
-      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-14 md:px-8 md:py-20 lg:grid-cols-12 lg:gap-12">
-        <Reveal className="lg:col-span-3">
-          <h2 className="font-display text-4xl font-extrabold tracking-tight md:text-5xl">{title}</h2>
+    <section id={id}>
+      <div className="mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-24">
+        <Reveal>
+          <div className="mb-10 flex items-center gap-4 border-b border-paper/20 pb-6 md:mb-14">
+            <FaAsterisk aria-hidden className="h-6 w-6 shrink-0 text-flame md:h-8 md:w-8" />
+            <h2 className="font-display text-[clamp(1.9rem,5vw,4rem)] uppercase leading-none tracking-[-0.03em]">
+              {title}
+            </h2>
+          </div>
         </Reveal>
-        <Reveal className="lg:col-span-9" delay={120}>
-          {children}
-        </Reveal>
+        <Reveal delay={120}>{children}</Reveal>
       </div>
     </section>
   );
