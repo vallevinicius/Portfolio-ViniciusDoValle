@@ -10,14 +10,14 @@ const awards = [
     project: 'Mei De Saqua',
     url: 'https://meidesaqua.saquarema.rj.gov.br/',
     Icon: FaTrophy,
-    badge: 'bg-buoy text-ink',
+    badge: 'bg-night text-flame',
   },
   {
     key: 'runnerUp',
     project: 'Aqui Tem ODS',
     url: 'https://aquitemods.saquarema.rj.gov.br/',
     Icon: FaMedal,
-    badge: 'bg-ink text-foam',
+    badge: 'bg-wine text-paper',
   },
 ] as const;
 
@@ -47,7 +47,7 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
   }, [paused, i, setI]);
 
   const btn =
-    'absolute top-[calc(50%-1rem)] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/70 text-foam transition-colors hover:bg-buoy hover:text-ink';
+    'absolute top-[calc(50%-1rem)] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-night/70 text-paper transition-colors hover:bg-flame hover:text-night';
 
   return (
     <div
@@ -60,7 +60,7 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      <div className="overflow-hidden rounded-2xl">
+      <div className="overflow-hidden rounded-[2rem]">
         <div
           className="flex transition-transform duration-700 ease-out motion-reduce:transition-none"
           style={{ transform: `translateX(-${i * 100}%)` }}
@@ -68,7 +68,7 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
           {photos.map((p, n) => (
             <figure key={p.src} aria-hidden={n !== i} className="relative w-full shrink-0">
               <img src={p.src} alt={a.photos[n].alt} loading="lazy" className="aspect-[4/3] w-full object-cover" />
-              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 to-transparent px-5 pb-4 pt-12 font-display text-lg font-bold text-foam">
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-night/90 to-transparent px-6 pb-5 pt-14 font-display text-lg font-bold uppercase text-paper">
                 {a.photos[n].caption}
               </figcaption>
             </figure>
@@ -91,7 +91,7 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
             onClick={() => setI(n)}
             className="group flex h-8 items-center px-1"
           >
-            <span className={`block h-2.5 rounded-full transition-all ${n === i ? 'w-8 bg-buoy' : 'w-2.5 bg-ink/30'}`} />
+            <span className={`block h-2.5 rounded-full transition-all ${n === i ? 'w-8 bg-flame' : 'w-2.5 bg-paper/30'}`} />
           </button>
         ))}
       </div>
@@ -107,7 +107,7 @@ export function Awards() {
 
   return (
     <Section id="awards" title={a.title}>
-      <p className="mb-8 max-w-[40rem] text-lg text-muted">
+      <p className="mb-8 max-w-[40rem] text-lg text-paper/80">
         {a.intro}
       </p>
       <div className="grid items-start gap-8 xl:grid-cols-[1.4fr_1fr]">
@@ -123,17 +123,17 @@ export function Awards() {
                 const idx = photos.findIndex((p) => p.award === n);
                 if (idx >= 0) setI(idx);
               }}
-              className={`group flex items-center gap-5 border-2 p-5 transition-colors hover:bg-sand/50 ${
-                active === n ? 'border-buoy bg-sand/40' : 'border-ink'
-              }`}
+              className={`group flex items-center gap-5 rounded-[2rem] p-6 transition-colors ${
+                n === 0 ? 'bg-flame text-night hover:bg-paper' : 'bg-paper text-wine hover:bg-flame hover:text-night'
+              } ${active === n ? 'ring-4 ring-paper/40' : ''}`}
             >
               <span aria-hidden className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-full ${badge}`}>
                 <Icon className="h-7 w-7" />
               </span>
               <div className="flex-1">
-                <h3 className="font-display text-2xl font-extrabold leading-tight">{a[key]}</h3>
-                <p className="mt-1 font-medium">{project}</p>
-                <p className="text-base text-muted">{a.visit}</p>
+                <h3 className="font-display text-2xl font-extrabold uppercase leading-tight">{a[key]}</h3>
+                <p className="mt-1 font-bold">{project}</p>
+                <p className="text-base font-medium opacity-80">{a.visit}</p>
               </div>
               <FiArrowUpRight aria-hidden className="h-6 w-6 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
@@ -148,22 +148,22 @@ export function Certifications() {
   const { t } = useLang();
   return (
     <Section id="certifications" title={t.certs.title}>
-      <ul className="border-t border-ink/30">
+      <ul className="border-t border-paper/20">
         {t.certs.items.map((c, n) => (
-          <li key={c.title} className="border-b border-ink/30">
+          <li key={c.title} className="border-b border-paper/20">
             <a
               href={certUrls[n]}
               target="_blank"
               rel="noreferrer"
-              className="group -mx-3 grid gap-1 px-3 py-5 transition-colors hover:bg-sand/50 sm:grid-cols-[1fr_auto] sm:gap-8"
+              className="group -mx-3 grid gap-1 px-3 py-5 transition-colors hover:bg-paper/5 sm:grid-cols-[1fr_auto] sm:gap-8"
             >
               <div>
-                <span className="font-display text-xl font-bold">{c.title}</span>
-                <p className="mt-1 max-w-[60ch] text-base text-muted">{c.about}</p>
+                <span className="font-display text-xl font-bold group-hover:text-flame">{c.title}</span>
+                <p className="mt-1 max-w-[60ch] text-base text-paper/70">{c.about}</p>
               </div>
-              <span className="flex items-center gap-2 text-muted">
+              <span className="flex items-center gap-2 text-paper/70">
                 Alura, {c.date}
-                <FiArrowUpRight aria-hidden className="h-5 w-5 text-ink transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                <FiArrowUpRight aria-hidden className="h-5 w-5 text-flame transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </span>
             </a>
           </li>

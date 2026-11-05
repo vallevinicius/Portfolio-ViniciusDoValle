@@ -13,6 +13,7 @@ const en = {
     closeMenu: 'Close menu',
     switchTo: 'Ver em português',
     switchShort: 'PT',
+    cta: 'Get in touch',
   },
   hero: {
     status: 'Open to new opportunities',
@@ -21,6 +22,11 @@ const en = {
     seeProjects: 'See my projects',
     email: 'Send an email',
     photoAlt: 'Portrait of Vinicius Valle',
+    headline: ['Full-stack code', 'that holds up', 'under load'],
+    stackLabel: 'Core stack',
+    stat: '1,000+',
+    statLabel: 'sign-ups handled at registration peaks',
+    awardsLabel: 'Sebrae awards, 1st and 2nd place',
   },
   work: {
     title: 'Projects',
@@ -116,6 +122,7 @@ const pt: Copy = {
     closeMenu: 'Fechar menu',
     switchTo: 'View in English',
     switchShort: 'EN',
+    cta: 'Fale comigo',
   },
   hero: {
     status: 'Aberto a novas oportunidades',
@@ -124,6 +131,11 @@ const pt: Copy = {
     seeProjects: 'Ver meus projetos',
     email: 'Enviar um e-mail',
     photoAlt: 'Retrato de Vinicius Valle',
+    headline: ['Código full-stack', 'que aguenta', 'a carga'],
+    stackLabel: 'Stack principal',
+    stat: '1.000+',
+    statLabel: 'inscrições suportadas em picos de cadastro',
+    awardsLabel: 'Prêmios Sebrae, 1º e 2º lugar',
   },
   work: {
     title: 'Projetos',
