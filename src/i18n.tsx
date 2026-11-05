@@ -16,14 +16,16 @@ const en = {
     cta: 'Get in touch',
   },
   hero: {
-    status: 'Open to new opportunities',
+    status: 'Open to opportunities in',
+    statusPlaces: 'Rio de Janeiro and São Paulo',
+    aboutTitle: 'About me',
     intro:
-      'Software Engineer from Saquarema, Rio de Janeiro. I build APIs and web apps with Java, Node.js and React, from the database to the interface, and I care about code that stays clear and fast under load.',
+      'Software Engineer from Rio de Janeiro. I build APIs and web apps with Java, Node.js and React, from the database to the interface, and I care about code that stays clear and fast under load.',
     seeProjects: 'See my projects',
     email: 'Send an email',
     contactTitle: 'Contact by email',
     contactHint: 'Write to me and I will reply soon.',
-    location: 'Rio de Janeiro, RJ',
+    location: 'Rio de Janeiro',
     characterAlt: '3D character inspired by Vinicius Valle, wearing sunglasses and a black hoodie',
     headline: ['Full-stack code', 'that holds up', 'under load'],
     stackLabel: 'Core stack',
@@ -107,7 +109,7 @@ const en = {
   },
   contact: {
     title: 'Have a role or a project in mind? Write to me.',
-    footer: '© 2026 Vinicius Valle. Based in Saquarema, Rio de Janeiro.',
+    footer: '© 2026 Vinicius Valle. Based in Rio de Janeiro.',
   },
 };
 
@@ -127,14 +129,16 @@ const pt: Copy = {
     cta: 'Fale comigo',
   },
   hero: {
-    status: 'Aberto a novas oportunidades',
+    status: 'Aberto a oportunidades no ',
+    statusPlaces: 'Rio de Janeiro e em São Paulo',
+    aboutTitle: 'Sobre mim',
     intro:
-      'Engenheiro de Software de Saquarema, Rio de Janeiro. Construo APIs e aplicações web com Java, Node.js e React, do banco de dados à interface, e me preocupo com código que continue claro e rápido sob carga.',
+      'Engenheiro de Software do Rio de Janeiro. Construo APIs e aplicações web com Java, Node.js e React, do banco de dados à interface, e me preocupo com código que continue claro e rápido sob carga.',
     seeProjects: 'Ver meus projetos',
     email: 'Enviar um e-mail',
     contactTitle: 'Contato por e-mail',
     contactHint: 'Escreva e eu respondo em breve.',
-    location: 'Saquarema, RJ',
+    location: 'Rio de Janeiro',
     characterAlt: 'Personagem 3D inspirado em Vinicius Valle, de óculos escuros e moletom preto',
     headline: ['Código full-stack', 'que aguenta', 'a carga'],
     stackLabel: 'Stack principal',
@@ -218,7 +222,7 @@ const pt: Copy = {
   },
   contact: {
     title: 'Tem uma vaga ou um projeto em mente? Fale comigo.',
-    footer: '© 2026 Vinicius Valle. Baseado em Saquarema, Rio de Janeiro.',
+    footer: '© 2026 Vinicius Valle. Baseado no Rio de Janeiro.',
   },
 };
 

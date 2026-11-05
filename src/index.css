@@ -89,6 +89,10 @@ section[id] {
   pointer-events: none;
   background: radial-gradient(120% 70% at 12% -10%, rgb(255 255 255 / 0.28), transparent 55%);
 }
+/* Denser variant for labels that sit on top of the giant name and must stay readable. */
+.glass-solid {
+  background: linear-gradient(160deg, rgb(30 8 6 / 0.9), rgb(10 0 0 / 0.82));
+}
 .glass-accent {
   background:
     linear-gradient(160deg, color-mix(in srgb, var(--color-flame) 55%, transparent), color-mix(in srgb, var(--color-flame) 18%, transparent) 60%, color-mix(in srgb, var(--color-flame) 32%, transparent));
