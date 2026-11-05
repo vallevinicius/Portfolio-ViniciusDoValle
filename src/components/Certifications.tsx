@@ -10,14 +10,14 @@ const awards = [
     project: 'Mei De Saqua',
     url: 'https://meidesaqua.saquarema.rj.gov.br/',
     Icon: FaTrophy,
-    badge: 'bg-night text-flame',
+    badge: 'bg-night/60 text-flame',
   },
   {
     key: 'runnerUp',
     project: 'Aqui Tem ODS',
     url: 'https://aquitemods.saquarema.rj.gov.br/',
     Icon: FaMedal,
-    badge: 'bg-wine text-paper',
+    badge: 'bg-paper/15 text-paper',
   },
 ] as const;
 
@@ -47,7 +47,7 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
   }, [paused, i, setI]);
 
   const btn =
-    'absolute top-[calc(50%-1rem)] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-night/70 text-paper transition-colors hover:bg-flame hover:text-night';
+    'absolute top-[calc(50%-1rem)] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-pill bg-night/70 text-paper transition-colors hover:bg-flame hover:text-night';
 
   return (
     <div
@@ -60,7 +60,7 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      <div className="overflow-hidden rounded-[2rem]">
+      <div className="overflow-hidden rounded-card">
         <div
           className="flex transition-transform duration-700 ease-out motion-reduce:transition-none"
           style={{ transform: `translateX(-${i * 100}%)` }}
@@ -91,7 +91,7 @@ function PhotoCarousel({ i, setI }: { i: number; setI: (n: number) => void }) {
             onClick={() => setI(n)}
             className="group flex h-8 items-center px-1"
           >
-            <span className={`block h-2.5 rounded-full transition-all ${n === i ? 'w-8 bg-flame' : 'w-2.5 bg-paper/30'}`} />
+            <span className={`block h-2.5 rounded-pill transition-all ${n === i ? 'w-8 bg-flame' : 'w-2.5 bg-paper/30'}`} />
           </button>
         ))}
       </div>
@@ -123,17 +123,17 @@ export function Awards() {
                 const idx = photos.findIndex((p) => p.award === n);
                 if (idx >= 0) setI(idx);
               }}
-              className={`group flex items-center gap-5 rounded-[2rem] p-6 transition-colors ${
-                n === 0 ? 'bg-flame text-night hover:bg-paper' : 'bg-paper text-wine hover:bg-flame hover:text-night'
-              } ${active === n ? 'ring-4 ring-paper/40' : ''}`}
+              className={`glass group flex items-center gap-5 rounded-card p-6 ${n === 0 ? 'glass-accent' : ''} ${
+                active === n ? 'ring-2 ring-paper/60' : ''
+              }`}
             >
-              <span aria-hidden className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-full ${badge}`}>
+              <span aria-hidden className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-pill ${badge}`}>
                 <Icon className="h-7 w-7" />
               </span>
               <div className="flex-1">
-                <h3 className="font-display text-2xl font-extrabold uppercase leading-tight">{a[key]}</h3>
-                <p className="mt-1 font-bold">{project}</p>
-                <p className="text-base font-medium opacity-80">{a.visit}</p>
+                <h3 className="font-display text-2xl uppercase leading-tight">{a[key]}</h3>
+                <p className="mt-1 font-semibold">{project}</p>
+                <p className="text-base text-paper/70">{a.visit}</p>
               </div>
               <FiArrowUpRight aria-hidden className="h-6 w-6 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>

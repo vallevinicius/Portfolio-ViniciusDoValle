@@ -13,15 +13,15 @@ const socials = [
 export function Contact() {
   const { t } = useLang();
   return (
-    <footer id="contact" className="mx-3 mb-3 scroll-mt-16 rounded-[2rem] bg-flame text-night md:mx-5 md:mb-5 md:rounded-[3rem]">
+    <footer id="contact" className="glass glass-accent mx-3 mb-3 scroll-mt-16 rounded-card-lg md:mx-5 md:mb-5">
       <Reveal className="mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-24">
-        <h2 className="max-w-4xl font-display text-[clamp(1.9rem,5.2vw,4.5rem)] font-bold uppercase leading-[0.95] tracking-[-0.03em]">
+        <h2 className="max-w-4xl font-display text-[clamp(1.9rem,5.2vw,4.5rem)] uppercase leading-[0.95] tracking-[-0.03em]">
           {t.contact.title}
         </h2>
 
         <a
           href="mailto:contatoviniciusvalledev@gmail.com"
-          className="mt-10 inline-block max-w-full break-all rounded-full bg-night px-6 py-3.5 font-display text-base font-bold text-paper transition-colors hover:bg-paper hover:text-wine sm:text-2xl"
+          className="mt-10 inline-block max-w-full break-all rounded-pill bg-flame px-6 py-3.5 font-display text-base font-semibold text-night transition-colors hover:bg-paper sm:text-2xl"
         >
           contatoviniciusvalledev@gmail.com
         </a>
@@ -33,7 +33,7 @@ export function Contact() {
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2.5 rounded-full border-2 border-night px-5 py-2.5 font-bold transition-colors hover:bg-night hover:text-paper"
+                className="flex items-center gap-2.5 glass rounded-pill px-5 py-2.5 font-semibold"
               >
                 <Icon aria-hidden className="h-5 w-5" />
                 {label}
@@ -42,7 +42,7 @@ export function Contact() {
           ))}
         </ul>
 
-        <p className="mt-16 border-t border-night/30 pt-6 text-base font-semibold">{t.contact.footer}</p>
+        <p className="mt-16 border-t border-paper/20 pt-6 text-base text-paper/80">{t.contact.footer}</p>
       </Reveal>
     </footer>
   );

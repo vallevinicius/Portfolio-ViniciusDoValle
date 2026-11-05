@@ -130,17 +130,17 @@ export function Work() {
         {featured.map((p, i) => (
           <article
             key={p.name}
-            className={`flex flex-col rounded-[2rem] p-7 md:p-10 ${i === 0 ? 'bg-paper text-wine' : 'bg-flame text-night'}`}
+            className={`glass flex flex-col rounded-card p-7 md:p-10 ${i === 1 ? 'glass-accent' : ''}`}
           >
             <div className="flex items-start justify-between gap-4">
-              <FaAsterisk aria-hidden className={`h-5 w-5 ${i === 0 ? 'text-flame' : 'text-night'}`} />
-              <span className="rounded-full border border-current px-3 py-0.5 text-sm font-bold">{p.year}</span>
+              <FaAsterisk aria-hidden className="h-5 w-5 text-flame" />
+              <span className="rounded-pill border border-current px-3 py-0.5 text-sm font-semibold">{p.year}</span>
             </div>
-            <h3 className="mt-8 font-display text-4xl font-extrabold uppercase leading-none tracking-tight md:text-5xl">{p.name}</h3>
+            <h3 className="mt-8 font-display text-4xl uppercase tracking-tight md:text-5xl">{p.name}</h3>
             <p className="mt-5 max-w-prose font-medium">{w.featured[p.name] ?? p.summary}</p>
             <ul className="mt-6 flex flex-wrap gap-2">
               {p.stack.map((s) => (
-                <li key={s} className="rounded-full bg-night/10 px-3 py-1 text-sm font-bold">
+                <li key={s} className="rounded-pill bg-paper/10 px-3 py-1 text-sm font-semibold">
                   {s}
                 </li>
               ))}
@@ -149,9 +149,7 @@ export function Work() {
               href={p.repo}
               target="_blank"
               rel="noreferrer"
-              className={`mt-8 inline-flex w-fit items-center gap-2 rounded-full px-6 py-3 font-bold transition-colors ${
-                i === 0 ? 'bg-wine text-paper hover:bg-flame hover:text-night' : 'bg-night text-paper hover:bg-paper hover:text-wine'
-              }`}
+              className="mt-8 inline-flex w-fit items-center gap-2 rounded-pill bg-flame px-6 py-3 font-semibold text-night transition-colors hover:bg-paper"
             >
               {w.viewApi}
               <FiArrowUpRight aria-hidden className="h-5 w-5" />
@@ -160,7 +158,7 @@ export function Work() {
         ))}
       </div>
 
-      <h3 id="more-work" className="mb-4 mt-20 scroll-mt-24 font-display text-2xl font-extrabold uppercase tracking-tight">
+      <h3 id="more-work" className="mb-4 mt-20 scroll-mt-24 font-display text-2xl uppercase tracking-tight">
         {w.fromGithub}
       </h3>
 
@@ -207,7 +205,7 @@ export function Work() {
                 type="button"
                 onClick={() => goTo(page - 1)}
                 disabled={page === 1}
-                className="rounded-full border border-paper/30 px-4 py-2 font-bold hover:border-flame hover:text-flame disabled:opacity-30 disabled:hover:border-paper/30 disabled:hover:text-paper"
+                className="rounded-pill border border-paper/30 px-4 py-2 font-bold hover:border-flame hover:text-flame disabled:opacity-30 disabled:hover:border-paper/30 disabled:hover:text-paper"
               >
                 {w.previous}
               </button>
@@ -218,7 +216,7 @@ export function Work() {
                   onClick={() => goTo(n)}
                   aria-label={`${w.page} ${n}`}
                   aria-current={n === page ? 'page' : undefined}
-                  className={`h-10 w-10 rounded-full font-bold ${n === page ? 'bg-flame text-night' : 'hover:bg-paper/10'}`}
+                  className={`h-10 w-10 rounded-pill font-bold ${n === page ? 'bg-flame text-night' : 'hover:bg-paper/10'}`}
                 >
                   {n}
                 </button>
@@ -227,7 +225,7 @@ export function Work() {
                 type="button"
                 onClick={() => goTo(page + 1)}
                 disabled={page === totalPages}
-                className="rounded-full border border-paper/30 px-4 py-2 font-bold hover:border-flame hover:text-flame disabled:opacity-30 disabled:hover:border-paper/30 disabled:hover:text-paper"
+                className="rounded-pill border border-paper/30 px-4 py-2 font-bold hover:border-flame hover:text-flame disabled:opacity-30 disabled:hover:border-paper/30 disabled:hover:text-paper"
               >
                 {w.next}
               </button>
